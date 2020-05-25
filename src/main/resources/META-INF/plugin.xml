@@ -1,11 +1,11 @@
 <idea-plugin>
     <id>org.devPlugins.TrelloSupport</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <name>TrelloSupport</name>
+    <version>1.0-SNAPSHOT</version>
+    <vendor email="firsa.denis@gmail.com" url="https://github.com/DFirsa">devPlugin</vendor>
 
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+    Plugin for working with trello desks in the intellij IDEA
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
@@ -14,9 +14,17 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
+        <toolWindow id="Trello" anchor="right" factoryClass="com.devPlugin.trelloSupport.ToolWindowRealize" secondary="true" icon="/icons/images.png">
+
+        </toolWindow>
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
+        <group id="TrelloSupport.TrelloActions" text="Trello" description="work with trello">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action class="com.devPlugin.trelloSupport.Actions.LogIn" id="TrelloSupport.TrelloActions.LogIn" text="Log in"/>
+            <action class="com.devPlugin.trelloSupport.Actions.LogOut" id="TrelloSupport.TrelloActions.LogOut" text="Log out"/>
+        </group>
     </actions>
 </idea-plugin>

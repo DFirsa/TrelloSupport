@@ -1,4 +1,4 @@
-package com.devPlugin.trelloSupport;
+package com.devPlugin.trelloSupport.Actions;
 
 import com.devPlugin.trelloSupport.memory.ConnectionParams;
 import com.intellij.openapi.actionSystem.AnAction;
