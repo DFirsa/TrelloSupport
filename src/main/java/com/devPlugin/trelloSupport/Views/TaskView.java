@@ -1,61 +1,73 @@
 package com.devPlugin.trelloSupport.Views;
 
 import com.intellij.ide.BrowserUtil;
-import com.intellij.ui.ClickListener;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.ui.VerticalFlowLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Date;
 
-public class TaskView {
-    private static final JButton sendButton = new JButton("Send");
-    private static final JButton commentButton = new JButton("Comment");
-    private static final JCheckBox isDone = new JCheckBox("is Done");;
-    private JPanel panel;
-    private JLabel taskTest;
-    private JPanel mainPanel;
+public class TaskView extends JFrame {
 
-    public TaskView(String _taskDescription,String taskName, String url) {
-        Font font = new Font("Verdana",Font.ITALIC,12);
+    private JPanel taskDescriptionPanel;
 
-        JPanel taskButtonsPanel = new JPanel(new FlowLayout());
-        JPanel taskDescriptionPanel = new JPanel(new FlowLayout());
+    public TaskView(String _taskDescription, String taskName, String url, String columnName) {
 
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new FlowLayout());
-        commentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-//                BrowserUtil.browse(url);
-                taskDescriptionPanel.setBackground(Color.GREEN);
-            }
-        });
-
-
+        taskDescriptionPanel = new JPanel(new VerticalFlowLayout());
         taskDescriptionPanel.setBorder(BorderFactory.createTitledBorder(""));
 
-        JTextArea taskDescription = new JTextArea("=== "+ taskName + " === \n" + _taskDescription);
+        JLabel taskLabel = new JLabel(taskName);
+        taskLabel.setFont(new Font("Verdana",Font.CENTER_BASELINE,12));
+        taskDescriptionPanel.add(taskLabel);
 
+        JLabel column = new JLabel("Column: " + columnName);
+        column.setFont(new Font("Verdana", Font.PLAIN, 12));
+        taskDescriptionPanel.add(column);
 
-        taskDescription.setFont(font);
+        JTextArea taskDescription = new JTextArea(_taskDescription);
+        taskDescription.setFont(new Font("Verdana",Font.ITALIC,12));
         taskDescriptionPanel.add(taskDescription);
 
+//        if(end != null){
+//            JLabel deadline = new JLabel("Deadline: " + end.toString());
+//            taskDescriptionPanel.add(deadline);
+//        }
 
+        taskDescriptionPanel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getButton() == MouseEvent.BUTTON1)
+                    taskDescriptionPanel.setBackground(Color.green);
 
-        taskButtonsPanel.add(isDone);
-        taskButtonsPanel.add(commentButton);
-//        taskDescriptionPanel.add(isDone);
-//        taskDescriptionPanel.add(commentButton);
+                if(e.getButton() == MouseEvent.BUTTON3)
+                    BrowserUtil.browse(url);
+            }
 
-        mainPanel.add(taskDescriptionPanel,BorderLayout.NORTH);
-        mainPanel.add(taskButtonsPanel,BorderLayout.CENTER);
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
 
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
     }
 
     public JPanel getPanel() {
-        return mainPanel;
+        return taskDescriptionPanel;
     }
 }
