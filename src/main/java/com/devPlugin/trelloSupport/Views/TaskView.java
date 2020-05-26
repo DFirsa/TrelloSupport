@@ -1,14 +1,12 @@
 package com.devPlugin.trelloSupport.Views;
 
 import com.intellij.ide.BrowserUtil;
-import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.VerticalFlowLayout;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Date;
 
 public class TaskView extends JFrame {
 
@@ -29,12 +27,10 @@ public class TaskView extends JFrame {
 
         JTextArea taskDescription = new JTextArea(_taskDescription);
         taskDescription.setFont(new Font("Verdana",Font.ITALIC,12));
+        taskDescription.setLineWrap(true);
+        taskDescription.setHighlighter(null);
+        taskDescription.setEditable(false);
         taskDescriptionPanel.add(taskDescription);
-
-//        if(end != null){
-//            JLabel deadline = new JLabel("Deadline: " + end.toString());
-//            taskDescriptionPanel.add(deadline);
-//        }
 
         taskDescriptionPanel.addMouseListener(new MouseListener() {
             @Override

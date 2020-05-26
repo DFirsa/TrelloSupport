@@ -55,26 +55,4 @@ public class TrelloDataWorker {
 
             return "";
     }
-
-    public void createTask(String name,String column, String desk){
-        List<Board> allBoards = trello.getBoardsByMember(member.getId());
-        Board board = null;
-        for (Board brd: allBoards)
-            if(brd.getName().equals(desk)){
-                board = brd;
-            }
-
-        if(board != null){
-            boolean ok = false;
-            for (org.trello4j.model.List list: trello.getListByBoard(board.getId()))
-                if(list.getName().equals(column)){
-                    ok = true;
-                    trello.createCard(list.getId(), name, null);
-                    break;
-                }
-
-            if (ok) Messages.showMessageDialog("This column doesn't' exist", "Invalid operation", Messages.getErrorIcon());
-        }
-        else Messages.showMessageDialog("This board doesn't' exist", "Invalid operation", Messages.getErrorIcon());
-    }
 }
